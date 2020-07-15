@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
- 
-import Posts from './components/posts';
-import SignUp from './components/signup';
- 
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import Posts from "./components/posts";
+import SignUp from "./components/signup";
+import Landing from "./components/landing";
+
 class App extends Component {
   render() {
-    return (      
-       <BrowserRouter>
+    return (
+      <Router>
         <div>
-            <Switch>
-             <Route path="/" component={Posts} exact/>
-             <Route path="/signup" component={SignUp} exact/>
-           </Switch>
-        </div> 
-      </BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/posts" component={Posts} />
+            <Route exact path="/signup" component={SignUp} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
- 
+
 export default App;
