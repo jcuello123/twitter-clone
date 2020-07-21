@@ -26,27 +26,39 @@ form {
   max-height: 150px;
 }
 
-#input-content,
-#input-name,
-#input-password,
-#confirm-password {
+.inp {
   background: #15202b;
   color: white;
 }
 
-#input-content:hover,
-#input-name:hover,
-#input-password:hover,
-#confirm-password:hover {
+.inp:hover,
+.inp:focus {
   border: 3px solid #007bff;
+  outline: none;
 }
 
-input[type="text"],
-#input-password,
-#input-content,
-#confirm-password {
+.inp {
   border: 1px solid white;
   border-radius: 10px;
+}
+
+header {
+  min-height: 40px;
+  margin-bottom: 20px;
+}
+
+nav {
+  float: right;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #105dff;
+}
+
+nav button:hover {
+  text-decoration: underline;
 }
 
 #like-button {

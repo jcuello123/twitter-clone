@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../App.css";
 import { Helmet } from "react-helmet";
 import { appendPost, listAllPosts } from "../util/posts";
+import { withRouter } from "react-router-dom";
 
 class Posts extends Component {
   constructor() {
@@ -12,6 +13,9 @@ class Posts extends Component {
   componentDidMount() {
     document.title = "Snookbook";
 
+    this.ensureAuthenticated();
+
+    //disable the post button for 10 seconds after posting
     const snookBtn = document.getElementById("snook-btn");
     snookBtn.disabled =
       localStorage.getItem("isButtonDisabled") === "true" ? true : false;
@@ -25,6 +29,16 @@ class Posts extends Component {
 
     listAllPosts();
   }
+
+  ensureAuthenticated = () => {
+    fetch("/api/posts")
+      .then((response) => response.json())
+      .then((status) => {
+        if (status === "failed") {
+          this.props.history.push("/");
+        }
+      });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -64,12 +78,25 @@ class Posts extends Component {
     }, 10000);
   };
 
+  handleLogout = () => {
+    fetch("/api/posts/logout").then((response) => {
+      this.props.history.push("/");
+    });
+  };
+
   render() {
     return (
       <div>
         <Helmet>
           <style>{"body { background-color: #15202b; color: white;}"}</style>
         </Helmet>
+        <header>
+          <nav>
+            <button className="m-2" onClick={this.handleLogout}>
+              Logout
+            </button>
+          </nav>
+        </header>
         <h1 className="text-center">Snookbook - Facebook for Snooks</h1>
         <div className="container posts-container">
           <form id="snook-form" onSubmit={this.handleSubmit}>
@@ -77,6 +104,7 @@ class Posts extends Component {
             <br />
             <textarea
               id="input-content"
+              className="inp"
               name="content"
               maxLength="200"
               required
@@ -93,4 +121,4 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+export default withRouter(Posts);

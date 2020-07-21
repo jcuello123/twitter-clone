@@ -4,13 +4,27 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const cors = require("cors");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const SECRET = process.env.SESSION_SECRET;
+const passport = require("passport");
+
+//Passport config
+require('./config/passport')(passport);
 
 //Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(express.static("client/build"));
+app.use(
+  session({
+    secret: SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Routes
 app.use("/", require("./routes/routes"));

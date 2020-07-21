@@ -29,10 +29,10 @@ class SignUp extends Component {
         body: JSON.stringify(user),
       }).then((response) =>
         response.json().then((signUpStatus) => {
-          if (signUpStatus == "successful") {
+          if (signUpStatus === "successful") {
             status.innerText = "Account creation was successful.";
             status.style.color = "green";
-          } else if (signUpStatus == "failed") {
+          } else if (signUpStatus === "failed") {
             status.innerText = "Username already exists.";
             status.style.color = "red";
           } else {
@@ -56,7 +56,13 @@ class SignUp extends Component {
             <p id="signup-status"></p>
             <label htmlFor="username">Create Username</label>
             <br />
-            <input type="text" name="username" id="input-name" required />
+            <input
+              type="text"
+              name="username"
+              id="input-name"
+              className="inp"
+              required
+            />
             <br />
             <label htmlFor="password">Create Password</label>
             <br />
@@ -64,6 +70,7 @@ class SignUp extends Component {
               type="password"
               name="password"
               id="input-password"
+              className="inp"
               required
             />
             <br />
@@ -73,6 +80,7 @@ class SignUp extends Component {
               type="password"
               name="confirmpassword"
               id="confirm-password"
+              className="inp"
               required
             />
             <br />
