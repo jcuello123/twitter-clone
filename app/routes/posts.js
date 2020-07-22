@@ -17,11 +17,39 @@ router.get("/", ensureAuthenticated, async (req, res) => {
   res.json(posts);
 });
 
+router.patch("/", ensureAuthenticated, async (req, res) => {
+  try {
+    const post = await Post.findById(req.body.post._id);
+    const { liked } = req.body;
+    const { username } = req.body;
+
+    const user = post.likedBy.find((u) => u === username);
+
+    if (liked) {
+      if (user == null || user == undefined) {
+        post.likedBy.push(username);
+      }
+      post.likes++;
+    } else {
+      if (user !== null || user !== undefined) {
+        const index = post.likedBy.indexOf(user);
+        post.likedBy.splice(index, 1);
+      }
+      post.likes--;
+    }
+    await post.save();
+    res.json(post.likes);
+  } catch (error) {
+    res.json("Error");
+  }
+});
+
+router.get("/login", (req, res) => {
+  res.json(req.user.username);
+});
+
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
-  res.json({
-    status: "authenticated",
-    username: req.user.username,
-  });
+  res.json("authenticated");
 });
 
 router.get("/logout", (req, res) => {
@@ -33,7 +61,7 @@ router.use("/", limiter);
 
 router.post("/", ensureAuthenticated, (req, res) => {
   const post = new Post({
-    name: filter.clean(req.body.name),
+    name: filter.clean(req.user.username),
     content: filter.clean(req.body.content),
     date: req.body.date,
   });

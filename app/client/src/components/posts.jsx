@@ -5,9 +5,13 @@ import { appendPost, listAllPosts } from "../util/posts";
 import { withRouter } from "react-router-dom";
 
 class Posts extends Component {
+  state = {
+    username: null,
+  };
+
   constructor() {
     super();
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePost = this.handlePost.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +44,14 @@ class Posts extends Component {
       });
   };
 
-  handleSubmit = (e) => {
+  handlePost = (e) => {
     e.preventDefault();
 
     //format the post
     const form = document.getElementById("snook-form");
     const formData = new FormData(form);
     const post = {
-      name: formData.get("name"),
+      name: this.getUserName(),
       content: formData.get("content"),
       date: new Date().toLocaleString("en-US"),
     };
@@ -84,6 +88,20 @@ class Posts extends Component {
     });
   };
 
+  getUserName = () => {
+    let user = "";
+
+    if (this.state.username === null) {
+      fetch("/api/posts/login")
+        .then((response) => response.json())
+        .then((username) => {
+          user = username;
+          this.setState({ username });
+        });
+      return user;
+    } else return this.state.username;
+  };
+
   render() {
     return (
       <div>
@@ -95,11 +113,12 @@ class Posts extends Component {
             <button className="m-2" onClick={this.handleLogout}>
               Logout
             </button>
+            <p id="username" className="m-2"></p>
           </nav>
         </header>
         <h1 className="text-center">Snookbook - Facebook for Snooks</h1>
         <div className="container posts-container">
-          <form id="snook-form" onSubmit={this.handleSubmit}>
+          <form id="snook-form" onSubmit={this.handlePost}>
             <label htmlFor="content">Content</label>
             <br />
             <textarea

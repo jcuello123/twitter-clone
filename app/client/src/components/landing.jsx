@@ -23,7 +23,7 @@ class Landing extends Component {
       body: JSON.stringify(user),
     })
       .then((response) => response.json())
-      .then((loginInfo) => {
+      .then((status) => {
         this.props.history.push("posts");
       })
       .catch((err) => {
