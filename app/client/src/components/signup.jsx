@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Helmet } from "react-helmet";
 import "../App.css";
 import { Link } from "react-router-dom";
+import Header from "./header";
+import Body from "./body";
 
 class SignUp extends Component {
   handleSubmit = (e) => {
@@ -44,23 +45,47 @@ class SignUp extends Component {
     }
   };
 
+  previewImage = () => {
+    let oFReader = new FileReader();
+    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+    oFReader.onload = (oFREvent) => {
+      document.getElementById("profile-picture").src = oFREvent.target.result;
+    };
+  };
+
   render() {
     return (
       <div>
-        <Helmet>
-          <style>{"body { background-color: #15202b; color: white;}"}</style>
-        </Helmet>
+        <Body></Body>
+        <Header></Header>
         <h1 className="text-center">Create your Snookbook account</h1>
         <div className="signup-container">
-          <form action="POST">
-            <p id="signup-status"></p>
+          <form>
+            <p>Choose a profile picture</p>
+            <img
+              src="emptycontact.png"
+              alt=""
+              id="profile-picture"
+              className="mb-3"
+              style={{ width: "100px", height: "100px", borderRadius: "50px" }}
+            />
+            <br></br>
+            <input
+              name="photo"
+              type="file"
+              id="uploadImage"
+              className="text-center"
+              onChange={this.previewImage}
+            />
+            <p id="signup-status mt-2"></p>
             <label htmlFor="username">Create Username</label>
             <br />
             <input
               type="text"
               name="username"
               id="input-name"
-              className="inp"
+              className="signup-inp"
               required
             />
             <br />
@@ -70,7 +95,7 @@ class SignUp extends Component {
               type="password"
               name="password"
               id="input-password"
-              className="inp"
+              className="signup-inp"
               required
             />
             <br />
@@ -80,19 +105,24 @@ class SignUp extends Component {
               type="password"
               name="confirmpassword"
               id="confirm-password"
-              className="inp"
+              className="signup-inp"
               required
             />
             <br />
             <input
               type="submit"
               value="Sign up"
+              id="signup-btn"
               className="btn btn-primary my-3"
               onClick={this.handleSubmit}
             />
           </form>
           <p>
-            <Link to="/">Login</Link>
+            Back to
+            <Link to="/" id="login-link">
+              {" "}
+              Login
+            </Link>
           </p>
         </div>
       </div>

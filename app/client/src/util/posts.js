@@ -54,7 +54,9 @@ function listAllPosts() {
         .then((response) => response.json())
         .then((data) => {
           data.forEach((post) => {
-            const color = post.likedBy.includes(username) ? "red" : "#2d3842";
+            const color = post.likedBy.includes(username)
+              ? "#dbbcb9"
+              : "#2d3842";
             const likes = post.likes;
             appendPost(post, color, likes);
           });
@@ -63,10 +65,10 @@ function listAllPosts() {
 }
 
 function handleLike(likeButton, numOfLikes, post) {
-  let liked = likeButton.style.color === "red" ? false : true;
+  let liked = likeButton.style.color === "#dbbcb9" ? false : true;
 
   if (liked) {
-    likeButton.style.color = "red";
+    likeButton.style.color = "#dbbcb9";
     numOfLikes.innerText = parseInt(numOfLikes.innerText) + 1;
   } else {
     likeButton.style.color = "#2d3842";

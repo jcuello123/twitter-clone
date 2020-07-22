@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Helmet } from "react-helmet";
 import { Link, withRouter } from "react-router-dom";
+import Header from "./header";
+import Body from "./body";
 
 class Landing extends Component {
   handleLogin = (e) => {
@@ -36,16 +37,25 @@ class Landing extends Component {
   render() {
     return (
       <div>
-        <Helmet>
-          <style>{"body { background-color: #15202b; color: white;}"}</style>
-        </Helmet>
-        <h1 className="text-center">Snookbook - Facebook for Snooks</h1>
+        <Body></Body>
+        <Header></Header>
+        <div className="welcome-container">
+          <p id="welcome-text">Welcome to</p>
+          <p id="snookbook-text">Snookbook..</p>
+          <p id="fav-text">..Your favorite social media app</p>
+        </div>
         <div className="login-container">
           <form id="login-form">
             <p id="login-status"></p>
             <label htmlFor="username">Username</label>
             <br />
-            <input id="input-name" className="inp" name="name" type="text" required />
+            <input
+              id="input-name"
+              className="inp"
+              name="name"
+              type="text"
+              required
+            />
             <br />
             <label htmlFor="password">Password</label>
             <br />
@@ -60,7 +70,10 @@ class Landing extends Component {
             </button>
           </form>
           <p>
-            Don't have an account? <Link to="/signup">Sign up.</Link>
+            Don't have an account?{" "}
+            <Link to="/signup" id="signup-link">
+              Sign up.
+            </Link>
           </p>
         </div>
       </div>

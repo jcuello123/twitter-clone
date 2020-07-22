@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../App.css";
-import { Helmet } from "react-helmet";
 import { appendPost, listAllPosts } from "../util/posts";
 import { withRouter } from "react-router-dom";
+import Body from "./body";
 
 class Posts extends Component {
   constructor() {
@@ -47,6 +47,7 @@ class Posts extends Component {
     const username = document.getElementById("username").innerHTML;
     const form = document.getElementById("snook-form");
     const formData = new FormData(form);
+    console.log("login formData", formData.get("content"));
     const post = {
       name: username,
       content: formData.get("content"),
@@ -88,12 +89,17 @@ class Posts extends Component {
   render() {
     return (
       <div>
-        <Helmet>
-          <style>{"body { background-color: #15202b; color: white;}"}</style>
-        </Helmet>
+        <Body></Body>
         <header>
           <nav>
-            <button className="m-2" onClick={this.handleLogout}>
+            <a href="/">
+              <img
+                src="logo.png"
+                alt=""
+                style={{ width: "100px", height: "100px" }}
+              />
+            </a>
+            <button id="logout-btn" className="m-2" onClick={this.handleLogout}>
               Logout
             </button>
             <p id="username" className="m-2"></p>

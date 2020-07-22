@@ -2,12 +2,24 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const cloudinary = require("cloudinary");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
-router.post("/", async (req, res) => {
+//cloudinary config
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
+router.post("/", upload.single("image"), async (req, res) => {
   try {
     let user = await User.findOne({
       username_lower: req.body.username.toLowerCase(),
     });
+
+    //const result = await cloudinary.v2.uploader.upload(req.file.path);
 
     if (!user) {
       const newUser = new User({
@@ -16,7 +28,9 @@ router.post("/", async (req, res) => {
         password: await bcrypt.hash(req.body.password, 10),
       });
 
-      newUser.save();
+      //if (req.file) newUser.imageURL = result.secure_url;
+
+      await newUser.save();
       res.json("successful");
     } else {
       res.json("failed");

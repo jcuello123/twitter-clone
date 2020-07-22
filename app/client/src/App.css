@@ -1,3 +1,13 @@
+header {
+  min-height: 80px;
+}
+
+nav li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 10px;
+}
+
 form {
   margin: 0 auto;
 }
@@ -13,8 +23,9 @@ form {
 }
 
 .post {
+  background: #15202b;
   margin: 0 auto;
-  border: 3px solid #2d3842;
+  border: 3px solid #e0b79b;
   border-radius: 10px;
   padding: 10px;
   width: 50%;
@@ -27,16 +38,27 @@ form {
 }
 
 .inp {
+  width: 50%;
+}
+
+.signup-inp,
+.inp {
   background: #15202b;
   color: white;
 }
+.signup-inp {
+  width: 20%;
+}
 
+.signup-inp:hover,
+.signup-inp:focus,
 .inp:hover,
 .inp:focus {
-  border: 3px solid #007bff;
+  border: 3px solid #dbbcb9;
   outline: none;
 }
 
+.signup-inp,
 .inp {
   border: 1px solid white;
   border-radius: 10px;
@@ -69,8 +91,64 @@ nav button:hover {
 
 #like-button {
   border: none;
-  background: #15202b;
+  background: none;
   font-size: 30px;
+}
+
+#logout-btn,
+#snook-btn,
+#signup-btn,
+#login-btn {
+  background: #dbbcb9;
+  border: 1px solid #dbbcb9;
+  color: #15202b;
+}
+
+#logout-btn:hover,
+#snook-btn:hover,
+#signup-btn:hover,
+#login-btn:hover {
+  background: #e0b79b;
+}
+
+#login-link {
+  color: #15202b;
+}
+
+#signup-link {
+  color: #dbbcb9;
+}
+
+#welcome-text {
+  font-size: 75px;
+  color: #15202b;
+}
+
+#snookbook-text {
+  font-size: 95px;
+  color: #e0b79b;
+}
+
+#fav-text {
+  font-size: 30px;
+  color: #15202b;
+}
+
+.welcome-container {
+  width: 40%;
+  margin-left: 20%;
+  margin-top: 4%;
+}
+
+.login-container {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  background: #15202b;
+  width: 20%;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-radius: 15px;
 }
 
 .login-container,
@@ -78,4 +156,8 @@ nav button:hover {
 .signup-container {
   margin-top: 4%;
   text-align: center;
+}
+
+#uploadImage {
+  margin-left: 100px;
 }
