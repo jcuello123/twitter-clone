@@ -9,7 +9,7 @@ module.exports = function(passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'username' }, async(username, password, done) => {
             try {
-                const user = await User.findOne({ username: username });
+                const user = await User.findOne({ username_lower: username.toLowerCase() });
                 if (!user) return done(null, false, { message: 'Username doesn\'t exist.' });
 
                 const match = await bcrypt.compare(password, user.password);

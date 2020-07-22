@@ -5,10 +5,6 @@ import { appendPost, listAllPosts } from "../util/posts";
 import { withRouter } from "react-router-dom";
 
 class Posts extends Component {
-  state = {
-    username: null,
-  };
-
   constructor() {
     super();
     this.handlePost = this.handlePost.bind(this);
@@ -48,10 +44,11 @@ class Posts extends Component {
     e.preventDefault();
 
     //format the post
+    const username = document.getElementById("username").innerHTML;
     const form = document.getElementById("snook-form");
     const formData = new FormData(form);
     const post = {
-      name: this.getUserName(),
+      name: username,
       content: formData.get("content"),
       date: new Date().toLocaleString("en-US"),
     };
@@ -86,20 +83,6 @@ class Posts extends Component {
     fetch("/api/posts/logout").then((response) => {
       this.props.history.push("/");
     });
-  };
-
-  getUserName = () => {
-    let user = "";
-
-    if (this.state.username === null) {
-      fetch("/api/posts/login")
-        .then((response) => response.json())
-        .then((username) => {
-          user = username;
-          this.setState({ username });
-        });
-      return user;
-    } else return this.state.username;
   };
 
   render() {

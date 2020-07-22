@@ -12,11 +12,13 @@ const limiter = rateLimit({
   max: 1, // limit each IP to 1 request per windowMs
 });
 
+//list all posts
 router.get("/", ensureAuthenticated, async (req, res) => {
   const posts = await Post.find();
   res.json(posts);
 });
 
+//update likes
 router.patch("/", ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.body.post._id);
@@ -24,7 +26,7 @@ router.patch("/", ensureAuthenticated, async (req, res) => {
     const { username } = req.body;
 
     const user = post.likedBy.find((u) => u === username);
-
+    
     if (liked) {
       if (user == null || user == undefined) {
         post.likedBy.push(username);
@@ -44,6 +46,7 @@ router.patch("/", ensureAuthenticated, async (req, res) => {
   }
 });
 
+//login
 router.get("/login", (req, res) => {
   res.json(req.user.username);
 });
@@ -52,6 +55,7 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
   res.json("authenticated");
 });
 
+//logout
 router.get("/logout", (req, res) => {
   req.logout();
   res.json("logged out");
