@@ -26,7 +26,7 @@ router.patch("/", ensureAuthenticated, async (req, res) => {
     const { username } = req.body;
 
     const user = post.likedBy.find((u) => u === username);
-    
+    console.log(liked);
     if (liked) {
       if (user == null || user == undefined) {
         post.likedBy.push(username);

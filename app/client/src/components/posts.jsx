@@ -47,7 +47,6 @@ class Posts extends Component {
     const username = document.getElementById("username").innerHTML;
     const form = document.getElementById("snook-form");
     const formData = new FormData(form);
-    console.log("login formData", formData.get("content"));
     const post = {
       name: username,
       content: formData.get("content"),
