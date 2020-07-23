@@ -33,11 +33,14 @@ class SignUp extends Component {
           if (signUpStatus === "successful") {
             status.innerText = "Account creation was successful.";
             status.style.color = "green";
-          } else if (signUpStatus === "failed") {
-            status.innerText = "Username already exists.";
-            status.style.color = "red";
           } else {
-            status.innerText = "An error has occured. Please try again.";
+            if (signUpStatus === "failed") {
+              status.innerText = "Username already exists.";
+            } else if (signUpStatus === "short") {
+              status.innerText = "Password must be longer than 5 characters.";
+            } else if (signUpStatus === "error") {
+              status.innerText = "An error has occured. Please try again.";
+            }
             status.style.color = "red";
           }
         })
@@ -78,7 +81,7 @@ class SignUp extends Component {
               className="text-center"
               onChange={this.previewImage}
             />
-            <p id="signup-status mt-2"></p>
+            <p id="signup-status" className="mt-2"></p>
             <label htmlFor="username">Create Username</label>
             <br />
             <input

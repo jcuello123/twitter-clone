@@ -21,6 +21,8 @@ router.post("/", upload.single("image"), async (req, res) => {
 
     //const result = await cloudinary.v2.uploader.upload(req.file.path);
 
+    if (req.body.password.length <= 5) return res.json("short");
+
     if (!user) {
       const newUser = new User({
         username: req.body.username,
