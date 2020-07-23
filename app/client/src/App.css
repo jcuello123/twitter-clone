@@ -1,5 +1,11 @@
+/* Global */
+
 header {
-  min-height: 80px;
+  min-height: 65px;
+  margin-bottom: 20px;
+}
+nav {
+  width: 100%;
 }
 
 nav li {
@@ -8,91 +14,8 @@ nav li {
   margin: 10px;
 }
 
-form {
-  margin: 0 auto;
-}
-
-#content {
-  border: none;
-  width: 100%;
-  min-height: 100px;
-  max-height: 100px;
-  color: white;
-  background: #15202b;
-  overflow-wrap: break-word;
-}
-
-.post {
-  background: #15202b;
-  margin: 0 auto;
-  border: 3px solid #e0b79b;
-  border-radius: 10px;
-  padding: 10px;
-  width: 50%;
-}
-
-#input-content {
-  width: 50%;
-  min-height: 150px;
-  max-height: 150px;
-}
-
 .inp {
   width: 50%;
-}
-
-.signup-inp,
-.inp {
-  background: #15202b;
-  color: white;
-}
-.signup-inp {
-  width: 20%;
-}
-
-.signup-inp:hover,
-.signup-inp:focus,
-.inp:hover,
-.inp:focus {
-  border: 3px solid #dbbcb9;
-  outline: none;
-}
-
-.signup-inp,
-.inp {
-  border: 1px solid white;
-  border-radius: 10px;
-}
-
-header {
-  min-height: 65px;
-  margin-bottom: 20px;
-}
-
-nav {
-  width: 100%;
-}
-
-nav,
-nav p,
-nav button {
-  float: right;
-}
-
-nav button {
-  background: none;
-  border: none;
-  color: #105dff;
-}
-
-nav button:hover {
-  text-decoration: underline;
-}
-
-#like-button {
-  border: none;
-  background: none;
-  font-size: 30px;
 }
 
 #logout-btn,
@@ -111,6 +34,28 @@ nav button:hover {
   background: #e0b79b;
 }
 
+.login-container,
+.posts-container,
+.signup-container {
+  margin-top: 4%;
+  text-align: center;
+}
+
+.signup-inp:hover,
+.signup-inp:focus,
+.inp:hover,
+.inp:focus {
+  border: 3px solid #dbbcb9;
+  outline: none;
+}
+
+.signup-inp,
+.inp {
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+/* Landing */
 #login-link {
   color: #15202b;
 }
@@ -146,18 +91,158 @@ nav button:hover {
   left: 60%;
   background: #15202b;
   width: 20%;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 1%;
+  padding-bottom: 1%;
   border-radius: 15px;
 }
+/* Posts */
+#content {
+  border: none;
+  width: 100%;
+  min-height: 100px;
+  max-height: 100px;
+  color: white;
+  background: #15202b;
+  overflow-wrap: break-word;
+}
 
-.login-container,
-.posts-container,
-.signup-container {
-  margin-top: 4%;
-  text-align: center;
+.post {
+  background: #15202b;
+  margin: 0 auto;
+  border: 3px solid #e0b79b;
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+}
+
+#input-content {
+  width: 50%;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+nav,
+nav p,
+nav button {
+  float: right;
+}
+
+nav button {
+  background: none;
+  border: none;
+
+  color: #105dff;
+}
+
+nav button:hover {
+  text-decoration: underline;
+}
+
+#like-button {
+  border: none;
+  background: none;
+  font-size: 30px;
+}
+
+/* Signup */
+.signup-inp,
+.inp {
+  background: #15202b;
+  color: white;
+}
+.signup-inp {
+  width: 20%;
 }
 
 #uploadImage {
   margin-left: 100px;
+}
+
+/* Media */
+@media (max-width: 1440px) {
+  .welcome-container {
+    margin-top: 4%;
+    width: 39%;
+    margin-left: 10%;
+  }
+  .login-container {
+    width: 30%;
+    left: 60%;
+  }
+}
+
+@media (max-width: 1024px) {
+  body {
+    padding-bottom: 90%;
+  }
+  .welcome-container {
+    margin-top: 8%;
+    width: 39%;
+    margin-left: 5%;
+  }
+  .login-container {
+    width: 30%;
+    left: 65%;
+  }
+  .inp {
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 80%;
+  }
+  #welcome-text {
+    font-size: 55px;
+  }
+
+  #snookbook-text {
+    font-size: 75px;
+  }
+  .login-container {
+    width: 33%;
+  }
+  .inp {
+    width: 80%;
+  }
+  .signup-inp {
+    width: 40%;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding-bottom: 100%;
+  }
+
+  .welcome-container {
+    text-align: center;
+    width: 90%;
+  }
+  .login-container {
+    margin: 0 auto;
+    position: static;
+    width: 90%;
+  }
+  #welcome-text {
+    font-size: 35px;
+  }
+
+  #snookbook-text {
+    font-size: 55px;
+  }
+  .signup-inp {
+    width: 55%;
+  }
+
+  #input-content {
+    width: 80%;
+    min-height: 200px;
+    max-height: 200px;
+  }
+  .post {
+    width: 80%;
+    height: 220px;
+  }
 }

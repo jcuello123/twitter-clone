@@ -39,6 +39,7 @@ class Landing extends Component {
       <div>
         <Body></Body>
         <Header></Header>
+
         <div className="welcome-container">
           <p id="welcome-text">Welcome to</p>
           <p id="snookbook-text">Snookbook..</p>

@@ -69,14 +69,14 @@ class Posts extends Component {
     document.getElementById("input-content").value = "";
 
     //disable send button for 10 seconds
-    const snookBtn = document.getElementById("snook-btn");
-    snookBtn.disabled = true;
-    localStorage.setItem("isButtonDisabled", true);
+    // const snookBtn = document.getElementById("snook-btn");
+    // snookBtn.disabled = true;
+    // localStorage.setItem("isButtonDisabled", true);
 
-    setTimeout(() => {
-      snookBtn.disabled = false;
-      localStorage.setItem("isButtonDisabled", false);
-    }, 10000);
+    // setTimeout(() => {
+    //   snookBtn.disabled = false;
+    //   localStorage.setItem("isButtonDisabled", false);
+    // }, 10000);
   };
 
   handleLogout = () => {
