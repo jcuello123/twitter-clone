@@ -18,6 +18,10 @@ const postSchema = new mongoose.Schema({
   likes:{
     type: Number,
     default: 0
+  },
+  profile_pic :{
+    type: String,
+    default: 'emptycontact.png'
   }
 });
 

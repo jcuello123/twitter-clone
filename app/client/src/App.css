@@ -121,9 +121,15 @@ nav li {
   max-height: 150px;
 }
 
-nav,
+#post_profile_pic,
+#profile_pic {
+  border: 2px solid #e0b79b;
+}
+
+#profile_pic,
 nav p,
 nav button {
+  margin: 5px;
   float: right;
 }
 
@@ -176,13 +182,17 @@ nav button:hover {
     padding-bottom: 90%;
   }
   .welcome-container {
-    margin-top: 8%;
-    width: 39%;
-    margin-left: 5%;
+    margin: 0 auto;
+    width: 46%;
   }
   .login-container {
-    width: 30%;
-    left: 65%;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: static;
+    width: 50%;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    font-size: 30px;
   }
   .inp {
     width: 70%;
@@ -201,7 +211,13 @@ nav button:hover {
     font-size: 75px;
   }
   .login-container {
-    width: 33%;
+    width: 55%;
+    font-size: 22px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .welcome-container {
+    width: 50%;
   }
   .inp {
     width: 80%;
@@ -216,21 +232,22 @@ nav button:hover {
     padding-bottom: 100%;
   }
 
-  .welcome-container {
-    text-align: center;
-    width: 90%;
-  }
-  .login-container {
-    margin: 0 auto;
-    position: static;
-    width: 90%;
-  }
   #welcome-text {
     font-size: 35px;
   }
 
   #snookbook-text {
     font-size: 55px;
+  }
+  .login-container {
+    width: 80%;
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .welcome-container {
+    width: 70%;
+    margin: 0 auto;
   }
   .signup-inp {
     width: 55%;
@@ -243,6 +260,9 @@ nav button:hover {
   }
   .post {
     width: 80%;
-    height: 220px;
+    height: 240px;
+  }
+  .title {
+    font-size: 24px;
   }
 }

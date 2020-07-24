@@ -26,7 +26,7 @@ router.patch("/", ensureAuthenticated, async (req, res) => {
     const { username } = req.body;
 
     const user = post.likedBy.find((u) => u === username);
-    console.log(liked);
+
     if (liked) {
       if (user == null || user == undefined) {
         post.likedBy.push(username);
@@ -48,7 +48,7 @@ router.patch("/", ensureAuthenticated, async (req, res) => {
 
 //login
 router.get("/login", (req, res) => {
-  res.json(req.user.username);
+  res.json({ username: req.user.username, imageURL: req.user.imageURL });
 });
 
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
@@ -68,6 +68,7 @@ router.post("/", ensureAuthenticated, (req, res) => {
     name: filter.clean(req.user.username),
     content: filter.clean(req.body.content),
     date: req.body.date,
+    profile_pic: req.body.profile_pic,
   });
   post.save();
 

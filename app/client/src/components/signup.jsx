@@ -5,12 +5,15 @@ import Header from "./header";
 import Body from "./body";
 
 class SignUp extends Component {
+  state = { imageData: "" };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
     const username = document.getElementById("input-name").value;
     const pass = document.getElementById("input-password").value;
     const confirmPass = document.getElementById("confirm-password").value;
+    const imageData = this.state.imageData;
     const status = document.getElementById("signup-status");
 
     if (pass !== confirmPass) {
@@ -20,6 +23,7 @@ class SignUp extends Component {
       const user = {
         username: username,
         password: pass,
+        imageData: imageData,
       };
 
       fetch("/api/signup", {
@@ -53,7 +57,9 @@ class SignUp extends Component {
     oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
 
     oFReader.onload = (oFREvent) => {
+      if (!oFREvent.target.result) return;
       document.getElementById("profile-picture").src = oFREvent.target.result;
+      this.setState({ imageData: oFREvent.target.result });
     };
   };
 
@@ -62,7 +68,7 @@ class SignUp extends Component {
       <div>
         <Body></Body>
         <Header></Header>
-        <h1 className="text-center">Create your Snookbook account</h1>
+        <h1 className="title text-center">Create your Snookbook account</h1>
         <div className="signup-container">
           <form>
             <p>Choose a profile picture</p>

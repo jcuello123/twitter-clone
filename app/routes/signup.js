@@ -13,13 +13,11 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let user = await User.findOne({
       username_lower: req.body.username.toLowerCase(),
     });
-
-    //const result = await cloudinary.v2.uploader.upload(req.file.path);
 
     if (req.body.password.length <= 5) return res.json("short");
 
@@ -30,7 +28,12 @@ router.post("/", upload.single("image"), async (req, res) => {
         password: await bcrypt.hash(req.body.password, 10),
       });
 
-      //if (req.file) newUser.imageURL = result.secure_url;
+      if (req.body.imageData) {
+        const result = await cloudinary.v2.uploader.upload(req.body.imageData, {
+          upload_preset: "profile-pictures",
+        });
+        newUser.imageURL = result.secure_url;
+      }
 
       await newUser.save();
       res.json("successful");

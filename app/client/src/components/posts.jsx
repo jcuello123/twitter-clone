@@ -47,10 +47,12 @@ class Posts extends Component {
     const username = document.getElementById("username").innerHTML;
     const form = document.getElementById("snook-form");
     const formData = new FormData(form);
+    const profile_pic = document.getElementById('profile_pic').src;
     const post = {
       name: username,
       content: formData.get("content"),
       date: new Date().toLocaleString("en-US"),
+      profile_pic: profile_pic
     };
 
     //Send post to server
@@ -69,14 +71,17 @@ class Posts extends Component {
     document.getElementById("input-content").value = "";
 
     //disable send button for 10 seconds
-    // const snookBtn = document.getElementById("snook-btn");
-    // snookBtn.disabled = true;
-    // localStorage.setItem("isButtonDisabled", true);
+    const snookBtn = document.getElementById("snook-btn");
+    snookBtn.disabled = true;
+    localStorage.setItem("isButtonDisabled", true);
 
-    // setTimeout(() => {
-    //   snookBtn.disabled = false;
-    //   localStorage.setItem("isButtonDisabled", false);
-    // }, 10000);
+    setTimeout(() => {
+      snookBtn.disabled = false;
+      localStorage.setItem("isButtonDisabled", false);
+    }, 10000);
+
+    //refresh the page
+    window.location.reload(true);
   };
 
   handleLogout = () => {
@@ -102,9 +107,15 @@ class Posts extends Component {
               Logout
             </button>
             <p id="username" className="m-2"></p>
+            <img
+              src="emptycontact.png"
+              id="profile_pic"
+              alt=""
+              style={{ width: "50px", height: "50px", borderRadius: "25px" }}
+            />
           </nav>
         </header>
-        <h1 className="text-center">Snookbook - Facebook for Snooks</h1>
+        <h1 className="title text-center">Snookbook - Facebook for Snooks</h1>
         <div className="container posts-container">
           <form id="snook-form" onSubmit={this.handlePost}>
             <label htmlFor="content">Content</label>

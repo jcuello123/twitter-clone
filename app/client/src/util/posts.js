@@ -1,20 +1,33 @@
-function appendPost(post, color, likes) {
+function appendPost(post, color, likes, img) {
   const div = document.createElement("div");
   div.className = "post";
 
-  const h4 = document.createElement("h4");
-  h4.innerText = post.name;
+  const profile_pic = document.createElement("img");
+  profile_pic.id = "post_profile_pic";
+  profile_pic.src = img;
+  profile_pic.alt = "";
+  profile_pic.style.width = "50px";
+  profile_pic.style.height = "50px";
+  profile_pic.style.borderRadius = "25px";
 
-  const p = document.createElement("p");
-  p.innerText = post.date;
+  const name = document.createElement("h4");
+  name.innerText = post.name;
 
-  const textArea = document.createElement("textarea");
-  textArea.id = "content";
-  textArea.readOnly = true;
-  textArea.innerText = post.content;
+  const pic_name_container = document.createElement("span");
+  pic_name_container.style.display = "inline";
+  pic_name_container.appendChild(profile_pic);
+  pic_name_container.appendChild(name);
+  profile_pic.style.cssFloat = "left";
 
-  const span = document.createElement("span");
-  span.className = "like-container";
+  const date = document.createElement("p");
+  date.innerText = post.date;
+
+  const content = document.createElement("textarea");
+  content.id = "content";
+  content.readOnly = true;
+  content.innerText = post.content;
+
+  const like_container = document.createElement("span");
 
   const likeButton = document.createElement("button");
   likeButton.innerHTML = "&#x2661;"; //heart symbol
@@ -31,32 +44,33 @@ function appendPost(post, color, likes) {
     handleLike(likeButton, numOfLikes, post);
   });
 
-  span.style.display = "inline";
-  span.appendChild(likeButton);
-  span.appendChild(numOfLikes);
+  like_container.style.display = "inline";
+  like_container.appendChild(likeButton);
+  like_container.appendChild(numOfLikes);
 
-  div.appendChild(h4);
-  div.appendChild(p);
-  div.appendChild(textArea);
-  div.appendChild(span);
+  div.appendChild(pic_name_container);
+  div.appendChild(date);
+  div.appendChild(content);
+  div.appendChild(like_container);
 
   document.querySelector(".posts").prepend(div);
 }
 
 function listAllPosts() {
-  //get req.user.username
+  //get req.user.username and profile pic for whoever is logged in
   fetch("/api/posts/login")
     .then((response) => response.json())
-    .then((username) => {
-      document.getElementById("username").innerHTML = username;
+    .then((user) => {
+      if (user.imageURL)
+        document.getElementById("profile_pic").src = user.imageURL;
       //get all posts
       fetch("/api/posts")
         .then((response) => response.json())
         .then((data) => {
           data.forEach((post) => {
-            const color = post.likedBy.includes(username) ? "pink" : "#2d3842";
+            const color = post.likedBy.includes(user.username) ? "pink" : "#2d3842";
             const likes = post.likes;
-            appendPost(post, color, likes);
+            appendPost(post, color, likes, post.profile_pic);
           });
         });
     });
@@ -79,10 +93,10 @@ function handleLike(likeButton, numOfLikes, post) {
   //get req.user.username
   fetch("/api/posts/login")
     .then((response) => response.json())
-    .then((username) => {
+    .then((user) => {
       postUpdate = {
         post: post,
-        username: username,
+        username: user.username,
         liked: liked,
       };
     })
