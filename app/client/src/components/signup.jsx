@@ -5,7 +5,7 @@ import Header from "./header";
 import Body from "./body";
 
 class SignUp extends Component {
-  state = { imageData: "" };
+  state = { imageData: "", imageName: "" };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -16,9 +16,31 @@ class SignUp extends Component {
     const imageData = this.state.imageData;
     const status = document.getElementById("signup-status");
 
+    status.style.color = "red";
+
     if (pass !== confirmPass) {
       status.innerText = "Passwords don't match.";
-      status.style.color = "red";
+    } else if (
+      this.state.imageName
+        .substring(
+          this.state.imageName.lastIndexOf(".") + 1,
+          this.state.imageName.length
+        )
+        .toLowerCase() !== "jpg" &&
+      this.state.imageName
+        .substring(
+          this.state.imageName.lastIndexOf(".") + 1,
+          this.state.imageName.length
+        )
+        .toLowerCase() !== "jpeg" &&
+      this.state.imageName
+        .substring(
+          this.state.imageName.lastIndexOf(".") + 1,
+          this.state.imageName.length
+        )
+        .toLowerCase() !== "png"
+    ) {
+      status.innerText = "Only jpg, jpeg, and png files are allowed!";
     } else {
       const user = {
         username: username,
@@ -54,11 +76,13 @@ class SignUp extends Component {
 
   previewImage = () => {
     let oFReader = new FileReader();
-    oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+    const img = document.getElementById("uploadImage").files[0];
+    oFReader.readAsDataURL(img);
+
+    this.setState({ imageName: img.name });
 
     oFReader.onload = (oFREvent) => {
       if (!oFREvent.target.result) return;
-      document.getElementById("profile-picture").src = oFREvent.target.result;
       this.setState({ imageData: oFREvent.target.result });
     };
   };
@@ -83,6 +107,7 @@ class SignUp extends Component {
             <input
               name="photo"
               type="file"
+              accept="image/x-png,image/gif,image/jpeg"
               id="uploadImage"
               className="text-center"
               onChange={this.previewImage}
