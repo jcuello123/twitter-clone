@@ -5,7 +5,7 @@ import Header from "./header";
 import Body from "./body";
 
 class SignUp extends Component {
-  state = { imageData: "", imageName: "" };
+  state = { imageData: null, imageName: null };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -15,12 +15,13 @@ class SignUp extends Component {
     const confirmPass = document.getElementById("confirm-password").value;
     const imageData = this.state.imageData;
     const status = document.getElementById("signup-status");
-
+    console.log("image name:", this.state.imageName);
     status.style.color = "red";
 
     if (pass !== confirmPass) {
       status.innerText = "Passwords don't match.";
     } else if (
+      this.state.imageName &&
       this.state.imageName
         .substring(
           this.state.imageName.lastIndexOf(".") + 1,
@@ -84,6 +85,7 @@ class SignUp extends Component {
     oFReader.onload = (oFREvent) => {
       if (!oFREvent.target.result) return;
       this.setState({ imageData: oFREvent.target.result });
+      document.getElementById("profile-picture").src = oFREvent.target.result;
     };
   };
 
@@ -105,7 +107,6 @@ class SignUp extends Component {
             />
             <br></br>
             <input
-              name="photo"
               type="file"
               accept="image/x-png,image/gif,image/jpeg"
               id="uploadImage"

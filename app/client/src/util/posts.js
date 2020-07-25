@@ -61,14 +61,20 @@ function listAllPosts() {
   fetch("/api/posts/login")
     .then((response) => response.json())
     .then((user) => {
-      if (user.imageURL)
+      if (user.imageURL) {
         document.getElementById("profile_pic").src = user.imageURL;
+        document.getElementById("pic_to_change").src = user.imageURL;
+      }
+      document.getElementById("username").innerHTML = user.username;
+
       //get all posts
       fetch("/api/posts")
         .then((response) => response.json())
         .then((data) => {
           data.forEach((post) => {
-            const color = post.likedBy.includes(user.username) ? "pink" : "#2d3842";
+            const color = post.likedBy.includes(user.username)
+              ? "pink"
+              : "#2d3842";
             const likes = post.likes;
             appendPost(post, color, likes, post.profile_pic);
           });
