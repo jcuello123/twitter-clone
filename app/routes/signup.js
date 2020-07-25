@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
       if (req.body.imageData) {
         const result = await cloudinary.v2.uploader.upload(req.body.imageData, {
           upload_preset: "profile-pictures",
+          public_id: `profile-pictures/${req.body.username}`,
         });
         newUser.imageURL = result.secure_url;
       }

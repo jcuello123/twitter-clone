@@ -93,7 +93,9 @@ class Posts extends Component {
   handleMenu = () => {
     const menu = document.querySelector(".menu");
     const ctr = document.querySelector(".change-pic-container");
-    if (menu.style.display === "none") menu.style.display = "block";
+
+    if (!menu.style.display || menu.style.display === "none")
+      menu.style.display = "block";
     else menu.style.display = "none";
 
     if (ctr.style.display === "block") ctr.style.display = "none";
@@ -106,8 +108,15 @@ class Posts extends Component {
   handleChangeProfilePicture = () => {
     const ctr = document.querySelector(".change-pic-container");
 
-    if (ctr.style.display === "none") ctr.style.display = "block";
-    else ctr.style.display = "none";
+    if (!ctr.style.display || ctr.style.display === "none") {
+      ctr.style.animation = "slidedown 0.3s";
+      ctr.style.display = "block";
+    } else {
+      ctr.style.animation = "slideup 0.3s";
+      setTimeout(() => {
+        ctr.style.display = "none";
+      }, 300);
+    }
   };
 
   previewImage = () => {
@@ -180,6 +189,7 @@ class Posts extends Component {
                 style={{ width: "100px", height: "100px" }}
               />
             </a>
+
             <button
               id="logout-btn"
               className="m-2 mt-4"
@@ -187,8 +197,10 @@ class Posts extends Component {
             >
               Logout
             </button>
+
             <p id="username" className="m-2"></p>
-            <button id="profile-pic-btn" onClick={this.handleMenu}>
+
+            <button id="profile-pic-btn btn" onClick={this.handleMenu}>
               <img
                 src="emptycontact.png"
                 id="profile_pic"
@@ -197,30 +209,30 @@ class Posts extends Component {
               />
             </button>
           </nav>
+
           <div className="menu">
             <button id="change-pic-btn">Change profile picture</button>
+
+            <div className="change-pic-container text-center">
+              <img src="emptycontact.png" id="pic_to_change" alt="" />
+              <input
+                type="file"
+                id="imgInput"
+                accept="image/x-png,image/gif,image/jpeg"
+                onChange={this.previewImage}
+              />
+              <br></br>
+              <p id="status"></p>
+              <button
+                id="update-pic-btn"
+                className="mt-5"
+                onClick={this.updatePicture}
+              >
+                Change picture
+              </button>
+            </div>
           </div>
         </header>
-
-        <div className="change-pic-container text-center">
-          <img src="emptycontact.png" id="pic_to_change" alt="" />
-          <input
-            type="file"
-            id="imgInput"
-            accept="image/x-png,image/gif,image/jpeg"
-            onChange={this.previewImage}
-          />
-          <br></br>
-          <p id="status"></p>
-          <button
-            id="update-pic-btn"
-            className="mt-5"
-            onClick={this.updatePicture}
-          >
-            Change picture
-          </button>
-        </div>
-
         <div className="container posts-container mt-5">
           <h1 className="title text-center mb-5">
             Snookbook - Facebook for Snooks

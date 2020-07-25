@@ -15,7 +15,6 @@ class SignUp extends Component {
     const confirmPass = document.getElementById("confirm-password").value;
     const imageData = this.state.imageData;
     const status = document.getElementById("signup-status");
-    console.log("image name:", this.state.imageName);
     status.style.color = "red";
 
     if (pass !== confirmPass) {

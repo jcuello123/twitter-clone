@@ -13,10 +13,10 @@ router.patch("/", async (req, res) => {
     });
 
     const posts = await Post.find({ name: user.username });
-    console.log(posts);
     if (req.body.imageData) {
       const result = await cloudinary.v2.uploader.upload(req.body.imageData, {
         upload_preset: "profile-pictures",
+        public_id: `profile-pictures/${req.body.username}`
       });
       user.imageURL = result.secure_url;
       posts.forEach((post) => {

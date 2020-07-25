@@ -13,6 +13,7 @@ nav li {
   width: 50%;
 }
 
+#snook-btn,
 #logout-btn,
 button {
   background: #dbbcb9;
@@ -26,6 +27,7 @@ button {
   border-radius: 5px;
 }
 
+#snook-btn:hover,
 #logout-btn:hover,
 button:hover {
   background: #e0b79b;
@@ -93,6 +95,7 @@ button:hover {
   border-radius: 15px;
 }
 /* Posts */
+.change-pic-container,
 .menu {
   width: 250px;
   height: 75px;
@@ -101,13 +104,13 @@ button:hover {
   float: right;
   margin-right: 50px;
   margin-right: 10px;
-  padding: 10px;
   border-radius: 10px;
+  border: 2px solid white;
 }
 
 #change-pic-btn {
-  margin-left: 13%;
-  margin-top: 5%;
+  margin-left: 15%;
+  margin-top: 9%;
   border-radius: 5px;
 }
 
@@ -121,17 +124,20 @@ button:hover {
 }
 
 #imgInput {
-  margin-left: 115px;
+  margin-left: 30px;
   margin-top: 35px;
 }
 
 .change-pic-container {
-  display: none;
-  margin: 0 auto;
-  width: 25%;
+  position: absolute;
+  top: 177px;
+  right: 1px;
   height: 320px;
+  padding-top: 25px;
   background: #15202b;
   border-radius: 10px;
+  animation: slidedown;
+  animation-duration: 0.3s;
 }
 
 #content {
@@ -306,5 +312,22 @@ nav button:hover {
   }
   .title {
     font-size: 24px;
+  }
+}
+
+/* Animations */
+@keyframes slidedown {
+  from {
+    transform: translate(0px, -75px);
+  }
+  to {
+  }
+}
+
+@keyframes slideup {
+  from {
+  }
+  to {
+    transform: translate(0px, -75px);
   }
 }
