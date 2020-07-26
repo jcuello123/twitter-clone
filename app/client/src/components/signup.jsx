@@ -3,6 +3,7 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import Header from "./header";
 import Body from "./body";
+import { validateImage } from "../util/helper";
 
 class SignUp extends Component {
   state = { imageData: null, imageName: null };
@@ -19,27 +20,7 @@ class SignUp extends Component {
 
     if (pass !== confirmPass) {
       status.innerText = "Passwords don't match.";
-    } else if (
-      this.state.imageName &&
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "jpg" &&
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "jpeg" &&
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "png"
-    ) {
+    } else if (!validateImage(this.state)) {
       status.innerText = "Only jpg, jpeg, and png files are allowed!";
     } else {
       const user = {

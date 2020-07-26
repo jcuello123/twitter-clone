@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import "../App.css";
-import { appendPost, listAllPosts } from "../util/posts";
+import {
+  appendPost,
+  listAllPosts,
+  handleMenu,
+  updatePicture,
+  handleLogout,
+  ensureAuthenticated,
+} from "../util/posts";
 import { withRouter } from "react-router-dom";
 import Body from "./body";
 
@@ -13,7 +20,7 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    this.ensureAuthenticated();
+    ensureAuthenticated(this.props);
 
     //disable the post button for 10 seconds after posting
     const snookBtn = document.getElementById("snook-btn");
@@ -29,16 +36,6 @@ class Posts extends Component {
 
     listAllPosts();
   }
-
-  ensureAuthenticated = () => {
-    fetch("/api/posts")
-      .then((response) => response.json())
-      .then((status) => {
-        if (status === "failed") {
-          this.props.history.push("/");
-        }
-      });
-  };
 
   handlePost = (e) => {
     e.preventDefault();
@@ -81,42 +78,7 @@ class Posts extends Component {
     }, 10000);
 
     //refresh the page
-    window.location.reload(true);
-  };
-
-  handleLogout = () => {
-    fetch("/api/posts/logout").then((response) => {
-      this.props.history.push("/");
-    });
-  };
-
-  handleMenu = () => {
-    const menu = document.querySelector(".menu");
-    const ctr = document.querySelector(".change-pic-container");
-
-    if (!menu.style.display || menu.style.display === "none")
-      menu.style.display = "block";
-    else menu.style.display = "none";
-
-    if (ctr.style.display === "block") ctr.style.display = "none";
-
-    document.getElementById(
-      "change-pic-btn"
-    ).onclick = this.handleChangeProfilePicture;
-  };
-
-  handleChangeProfilePicture = () => {
-    const ctr = document.querySelector(".change-pic-container");
-
-    if (!ctr.style.display || ctr.style.display === "none") {
-      ctr.style.animation = "slidedown 0.3s";
-      ctr.style.display = "block";
-    } else {
-      ctr.style.animation = "slideup 0.3s";
-      setTimeout(() => {
-        ctr.style.display = "none";
-      }, 300);
-    }
+    //window.location.reload(true);
   };
 
   previewImage = () => {
@@ -133,49 +95,6 @@ class Posts extends Component {
     };
   };
 
-  updatePicture = () => {
-    const status = document.getElementById("status");
-
-    if (
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "jpg" &&
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "jpeg" &&
-      this.state.imageName
-        .substring(
-          this.state.imageName.lastIndexOf(".") + 1,
-          this.state.imageName.length
-        )
-        .toLowerCase() !== "png"
-    ) {
-      status.style.color = "red";
-      status.innerText = "Only jpg, jpeg, and png files are allowed!";
-    } else {
-      const username = document.getElementById("username").innerHTML.toString();
-      const userToUpdate = {
-        username: username,
-        imageData: this.state.imageData,
-      };
-
-      fetch("/api/update", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userToUpdate),
-      });
-      window.location.reload(true);
-    }
-  };
-
   render() {
     return (
       <div>
@@ -185,6 +104,7 @@ class Posts extends Component {
             <a href="/">
               <img
                 src="logo.png"
+                id="logo"
                 alt=""
                 style={{ width: "100px", height: "100px" }}
               />
@@ -192,15 +112,15 @@ class Posts extends Component {
 
             <button
               id="logout-btn"
-              className="m-2 mt-4"
-              onClick={this.handleLogout}
+              className="mx-2 mt-4"
+              onClick={() => handleLogout(this.props)}
             >
               Logout
             </button>
 
-            <p id="username" className="m-2"></p>
+            <p id="username"></p>
 
-            <button id="profile-pic-btn btn" onClick={this.handleMenu}>
+            <button id="profile-pic-btn btn" onClick={handleMenu}>
               <img
                 src="emptycontact.png"
                 id="profile_pic"
@@ -226,14 +146,14 @@ class Posts extends Component {
               <button
                 id="update-pic-btn"
                 className="mt-5"
-                onClick={this.updatePicture}
+                onClick={() => updatePicture(this.state)}
               >
                 Change picture
               </button>
             </div>
           </div>
         </header>
-        <div className="container posts-container mt-5">
+        <div className="posts-container mt-5">
           <h1 className="title text-center mb-5">
             Snookbook - Facebook for Snooks
           </h1>

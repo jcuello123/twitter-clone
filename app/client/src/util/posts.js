@@ -119,7 +119,90 @@ function handleLike(likeButton, numOfLikes, post) {
     });
 }
 
+function handleMenu() {
+  const menu = document.querySelector(".menu");
+  const ctr = document.querySelector(".change-pic-container");
+
+  if (!menu.style.display || menu.style.display === "none")
+    menu.style.display = "block";
+  else menu.style.display = "none";
+
+  if (ctr.style.display === "block") ctr.style.display = "none";
+
+  document.getElementById(
+    "change-pic-btn"
+  ).onclick = handleChangeProfilePicture;
+}
+
+function handleChangeProfilePicture() {
+  const ctr = document.querySelector(".change-pic-container");
+
+  if (!ctr.style.display || ctr.style.display === "none") {
+    ctr.style.animation = "slidedown 0.3s";
+    ctr.style.display = "block";
+  } else {
+    ctr.style.animation = "slideup 0.3s";
+    setTimeout(() => {
+      ctr.style.display = "none";
+    }, 300);
+  }
+}
+
+function updatePicture(state) {
+  const status = document.getElementById("status");
+
+  if (
+    state.imageName
+      .substring(state.imageName.lastIndexOf(".") + 1, state.imageName.length)
+      .toLowerCase() !== "jpg" &&
+    state.imageName
+      .substring(state.imageName.lastIndexOf(".") + 1, state.imageName.length)
+      .toLowerCase() !== "jpeg" &&
+    state.imageName
+      .substring(state.imageName.lastIndexOf(".") + 1, state.imageName.length)
+      .toLowerCase() !== "png"
+  ) {
+    status.style.color = "red";
+    status.innerText = "Only jpg, jpeg, and png files are allowed!";
+  } else {
+    const username = document.getElementById("username").innerHTML.toString();
+    const userToUpdate = {
+      username: username,
+      imageData: state.imageData,
+    };
+
+    fetch("/api/update", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userToUpdate),
+    });
+    window.location.reload(true);
+  }
+}
+
+function handleLogout(props) {
+  fetch("/api/posts/logout").then((response) => {
+    props.history.push("/");
+  });
+}
+
+function ensureAuthenticated(props) {
+  fetch("/api/posts")
+    .then((response) => response.json())
+    .then((status) => {
+      if (status === "failed") {
+        props.history.push("/");
+      }
+    });
+}
+
 module.exports = {
   appendPost: appendPost,
   listAllPosts: listAllPosts,
+  handleMenu: handleMenu,
+  updatePicture: updatePicture,
+  handleLogout: handleLogout,
+  ensureAuthenticated: ensureAuthenticated,
 };
