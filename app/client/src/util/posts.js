@@ -122,13 +122,20 @@ function handleLike(likeButton, numOfLikes, post) {
 function handleMenu() {
   const menu = document.querySelector(".menu");
   const ctr = document.querySelector(".change-pic-container");
+  let pic_to_change = document.getElementById("pic_to_change");
+  const profile_pic = document.getElementById("profile_pic");
+  const status = document.getElementById("status");
 
   if (!menu.style.display || menu.style.display === "none")
     menu.style.display = "block";
   else menu.style.display = "none";
 
-  if (ctr.style.display === "block") ctr.style.display = "none";
-
+  if (ctr.style.display === "block") {
+    pic_to_change.src = profile_pic.src;
+    status.style.display = "none";
+    ctr.style.height = "250px";
+    ctr.style.display = "none";
+  }
   document.getElementById(
     "change-pic-btn"
   ).onclick = handleChangeProfilePicture;
@@ -136,6 +143,9 @@ function handleMenu() {
 
 function handleChangeProfilePicture() {
   const ctr = document.querySelector(".change-pic-container");
+  let pic_to_change = document.getElementById("pic_to_change");
+  const profile_pic = document.getElementById("profile_pic");
+  const status = document.getElementById("status");
 
   if (!ctr.style.display || ctr.style.display === "none") {
     ctr.style.animation = "slidedown 0.3s";
@@ -143,6 +153,9 @@ function handleChangeProfilePicture() {
   } else {
     ctr.style.animation = "slideup 0.3s";
     setTimeout(() => {
+      pic_to_change.src = profile_pic.src;
+      status.style.display = "none";
+      ctr.style.height = "250px";
       ctr.style.display = "none";
     }, 300);
   }
@@ -162,7 +175,8 @@ function updatePicture(state) {
       .substring(state.imageName.lastIndexOf(".") + 1, state.imageName.length)
       .toLowerCase() !== "png"
   ) {
-    status.style.color = "red";
+    document.querySelector(".change-pic-container").style.height = "360px";
+    status.style.display = "block";
     status.innerText = "Only jpg, jpeg, and png files are allowed!";
   } else {
     const username = document.getElementById("username").innerHTML.toString();

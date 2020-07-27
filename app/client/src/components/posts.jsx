@@ -84,15 +84,19 @@ class Posts extends Component {
   previewImage = () => {
     let oFReader = new FileReader();
     const img = document.getElementById("imgInput").files[0];
+    if (!img) return;
     oFReader.readAsDataURL(img);
 
     this.setState({ imageName: img.name });
 
     oFReader.onload = (oFREvent) => {
-      if (!oFREvent.target.result) return;
       this.setState({ imageData: oFREvent.target.result });
       document.getElementById("pic_to_change").src = oFREvent.target.result;
     };
+  };
+
+  handleBrowse = () => {
+    document.getElementById("imgInput").click();
   };
 
   render() {
@@ -106,32 +110,28 @@ class Posts extends Component {
                 src="logo.png"
                 id="logo"
                 alt=""
-                style={{ width: "100px", height: "100px" }}
+                style={{ width: "50px", height: "50px" }}
               />
             </a>
-
-            <button
-              id="logout-btn"
-              className="mx-2 mt-4"
-              onClick={() => handleLogout(this.props)}
-            >
-              Logout
-            </button>
-
-            <p id="username"></p>
 
             <button id="profile-pic-btn btn" onClick={handleMenu}>
               <img
                 src="emptycontact.png"
                 id="profile_pic"
                 alt=""
-                style={{ width: "50px", height: "50px", borderRadius: "25px" }}
+                style={{ width: "35px", height: "35px", borderRadius: "25px" }}
               />
             </button>
+
+            <p id="username"></p>
           </nav>
 
           <div className="menu">
             <button id="change-pic-btn">Change profile picture</button>
+
+            <button id="logout-btn" onClick={() => handleLogout(this.props)}>
+              Logout
+            </button>
 
             <div className="change-pic-container text-center">
               <img src="emptycontact.png" id="pic_to_change" alt="" />
@@ -140,20 +140,31 @@ class Posts extends Component {
                 id="imgInput"
                 accept="image/x-png,image/gif,image/jpeg"
                 onChange={this.previewImage}
+                style={{ display: "none" }}
+              />
+              <input
+                id="browse-btn"
+                type="button"
+                value="Browse..."
+                onClick={this.handleBrowse}
               />
               <br></br>
-              <p id="status"></p>
+              <div
+                id="status"
+                className="alert alert-danger"
+                role="alert"
+                style={{ display: "none", width: "90%", margin: "0 auto" }}
+              ></div>
               <button
                 id="update-pic-btn"
-                className="mt-5"
                 onClick={() => updatePicture(this.state)}
               >
-                Change picture
+                Update picture
               </button>
             </div>
           </div>
         </header>
-        <div className="posts-container mt-5">
+        <div className="container posts-container mt-5">
           <h1 className="title text-center mb-5">
             Snookbook - Facebook for Snooks
           </h1>

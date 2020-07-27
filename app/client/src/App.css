@@ -1,9 +1,4 @@
 /* Global */
-
-header {
-  margin-bottom: 85px;
-}
-
 nav {
   width: 100%;
 }
@@ -18,8 +13,10 @@ nav li {
   width: 50%;
 }
 
+#signup-btn,
+#signup-browse-btn,
+#browse-btn,
 #snook-btn,
-#logout-btn,
 button {
   background: #dbbcb9;
   border: 1px solid #dbbcb9;
@@ -29,9 +26,14 @@ button {
 }
 
 #update-pic-btn {
+  margin-top: 10%;
   border-radius: 5px;
 }
 
+#signup-btn:hover,
+#signup-browse-btn:hover,
+#browse-btn:hover,
+#change-pic-btn:hover,
 #snook-btn:hover,
 #logout-btn:hover,
 button:hover {
@@ -100,24 +102,30 @@ button:hover {
   border-radius: 15px;
 }
 /* Posts */
-
 .change-pic-container,
 .menu {
-  width: 250px;
-  height: 75px;
+  width: 150px;
+  height: 125px;
   background: #15202b;
   display: none;
   float: right;
-  margin-right: 50px;
-  margin-right: 10px;
+  margin-right: 0px;
   border-radius: 10px;
   border: 2px solid white;
 }
 
+#logout-btn,
 #change-pic-btn {
-  margin-left: 12%;
-  margin-top: 7%;
-  border-radius: 5px;
+  color: white;
+  background: #15202b;
+  width: 100%;
+  margin-top: 10%;
+  border: none;
+}
+
+#browse-btn {
+  margin-top: 10%;
+  margin-bottom: 10%;
 }
 
 #pic_to_change {
@@ -129,16 +137,10 @@ button:hover {
   margin: 0 auto;
 }
 
-#imgInput {
-  margin-left: 30px;
-  margin-top: 35px;
-}
-
 .change-pic-container {
   position: absolute;
   top: 177px;
-  right: 1px;
-  height: 320px;
+  height: 250px;
   padding-top: 25px;
   background: #15202b;
   border-radius: 10px;
@@ -147,8 +149,8 @@ button:hover {
 }
 
 #content {
-  width: 85%;
   border: none;
+  width: 100%;
   min-height: 100px;
   max-height: 100px;
   color: white;
@@ -157,17 +159,16 @@ button:hover {
 }
 
 .post {
-  text-align: center;
-  width: 30%;
   background: #15202b;
   margin: 0 auto;
   border: 3px solid #e0b79b;
   border-radius: 10px;
   padding: 10px;
+  width: 50%;
 }
 
 #input-content {
-  width: 30%;
+  width: 50%;
   min-height: 150px;
   max-height: 150px;
 }
@@ -233,50 +234,11 @@ nav button:hover {
 }
 
 @media (max-width: 1024px) {
-  .change-pic-container,
-  .menu {
-    width: 275px;
-  }
-  .change-pic-container {
-    height: 375px;
-  }
-  #imgInput {
-    font-size: 20px;
-    margin-left: 4%;
+  header {
+    margin-bottom: 150px;
   }
   body {
     padding-bottom: 90%;
-  }
-  #change-pic-btn {
-    margin-left: 8%;
-    margin-top: 6%;
-    font-size: 22px;
-  }
-  #username {
-    font-size: 18px;
-  }
-  #update-pic-btn,
-  #logout-btn,
-  #snook-btn {
-    font-size: 30px;
-  }
-  .title {
-    font-size: 48px;
-  }
-  .post,
-  #input-content {
-    width: 60%;
-  }
-  #input-content {
-    min-height: 280px;
-    max-height: 280px;
-  }
-  #content {
-    min-height: 320px;
-    max-height: 320px;
-  }
-  .posts-container {
-    font-size: 30px;
   }
   .welcome-container {
     margin: 0 auto;
@@ -297,9 +259,6 @@ nav button:hover {
 }
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 44px;
-  }
   body {
     padding-bottom: 80%;
   }
@@ -328,24 +287,6 @@ nav button:hover {
 }
 
 @media (max-width: 420px) {
-  .change-pic-container,
-  .menu {
-    width: 175px;
-  }
-  .change-pic-container {
-    height: 290px;
-  }
-  #imgInput {
-    font-size: 12px;
-  }
-  #change-pic-btn {
-    margin-left: 6%;
-    margin-top: 12%;
-    font-size: 14px;
-  }
-  #update-pic-btn {
-    font-size: 16px;
-  }
   body {
     padding-bottom: 100%;
   }
@@ -372,26 +313,16 @@ nav button:hover {
   }
 
   #input-content {
-    width: 90%;
-    min-height: 175px;
-    max-height: 175px;
-  }
-  .post {
-    width: 90%;
-  }
-  .title {
-    font-size: 28px;
-  }
-  #logout-btn,
-  #snook-btn {
-    font-size: 22px;
-  }
-  #content {
+    width: 80%;
     min-height: 200px;
     max-height: 200px;
   }
-  .posts-container {
-    font-size: 18px;
+  .post {
+    width: 80%;
+    height: 240px;
+  }
+  .title {
+    font-size: 24px;
   }
 }
 

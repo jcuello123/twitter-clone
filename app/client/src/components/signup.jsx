@@ -16,11 +16,11 @@ class SignUp extends Component {
     const confirmPass = document.getElementById("confirm-password").value;
     const imageData = this.state.imageData;
     const status = document.getElementById("signup-status");
-    status.style.color = "red";
 
     if (pass !== confirmPass) {
       status.innerText = "Passwords don't match.";
-    } else if (!validateImage(this.state)) {
+    } else if (this.state.imageName !== null && !validateImage(this.state)) {
+      status.classList.add("alert", "alert-danger");
       status.innerText = "Only jpg, jpeg, and png files are allowed!";
     } else {
       const user = {
@@ -38,9 +38,11 @@ class SignUp extends Component {
       }).then((response) =>
         response.json().then((signUpStatus) => {
           if (signUpStatus === "successful") {
+            status.classList.remove("alert-danger");
+            status.classList.add("alert", "alert-success");
             status.innerText = "Account creation was successful.";
-            status.style.color = "green";
           } else {
+            status.classList.add("alert", "alert-danger");
             if (signUpStatus === "failed") {
               status.innerText = "Username already exists.";
             } else if (signUpStatus === "short") {
@@ -48,7 +50,6 @@ class SignUp extends Component {
             } else if (signUpStatus === "error") {
               status.innerText = "An error has occured. Please try again.";
             }
-            status.style.color = "red";
           }
         })
       );
@@ -67,6 +68,10 @@ class SignUp extends Component {
       this.setState({ imageData: oFREvent.target.result });
       document.getElementById("profile-picture").src = oFREvent.target.result;
     };
+  };
+
+  handleBrowse = () => {
+    document.getElementById("uploadImage").click();
   };
 
   render() {
@@ -88,10 +93,16 @@ class SignUp extends Component {
             <br></br>
             <input
               type="file"
-              accept="image/x-png,image/gif,image/jpeg"
               id="uploadImage"
-              className="text-center"
+              accept="image/x-png,image/gif,image/jpeg"
               onChange={this.previewImage}
+              style={{ display: "none" }}
+            />
+            <input
+              id="signup-browse-btn"
+              type="button"
+              value="Browse..."
+              onClick={this.handleBrowse}
             />
             <p id="signup-status" className="mt-2"></p>
             <label htmlFor="username">Create Username</label>
@@ -124,13 +135,13 @@ class SignUp extends Component {
               required
             />
             <br />
-            <input
-              type="submit"
-              value="Sign up"
+            <button
               id="signup-btn"
-              className="btn btn-primary my-3"
+              className="my-3"
               onClick={this.handleSubmit}
-            />
+            >
+              Sign up
+            </button>
           </form>
           <p>
             Back to
